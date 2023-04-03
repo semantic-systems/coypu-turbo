@@ -2,7 +2,7 @@ from flask import abort, Flask, jsonify, request
 from flask_healthz import healthz
 import os, sys
 import torch
-from build.example import setup_model_parallel, load
+from example import setup_model_parallel, load
 
 
 app = Flask(__name__)
