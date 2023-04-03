@@ -2,7 +2,7 @@ from flask import abort, Flask, jsonify, request
 from flask_healthz import healthz
 import os, sys
 import torch
-from build.example import setup_model_parallel, load
+from example import setup_model_parallel, load
 
 
 app = Flask(__name__)
@@ -38,8 +38,8 @@ os.environ["NCCL_SOCKET_IFNAME"] = "lo"
 CKPT_PATH = "/data/llama/7B/"
 TOKENIZER_PATH = "/data/llama/tokenizer.model"
 
-ckpt_dir= CKPT_PATH
-tokenizer_path= TOKENIZER_PATH
+ckpt_dir = CKPT_PATH
+tokenizer_path = TOKENIZER_PATH
 temperature = 0.8
 top_p = 0.95
 max_seq_len = 512
