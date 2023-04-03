@@ -18,6 +18,11 @@ from llama import ModelArgs, Transformer, Tokenizer, LLaMA
 
 CKPT_PATH = "/coypu/static-data/models/llama/llama-dl/7B/"
 TOKENIZER_PATH = "/coypu/static-data/models/llama/llama-dl/tokenizer.model"
+os.environ["LOCAL_RANK"] = "-1"
+os.environ["RANK"] = "-1"
+os.environ["WORLD_SIZE"] = "-1"
+os.environ["MASTER_ADDR"] = "localhost"
+os.environ["MASTER_PORT"] = "5278"
 
 
 def setup_model_parallel() -> Tuple[int, int]:
@@ -165,7 +170,7 @@ if __name__ == "__main__":
     ]
     results = generator.generate(
         prompts, max_gen_len=256, temperature=temperature, top_p=top_p
-    )
+    )q
 
     for result in results:
         print(result)
