@@ -10,8 +10,8 @@ RUN \
         curl && \
     apt-get install -y --no-install-recommends \
         python3.9 \
-        python3-pip \
-        nvidia-container-toolkit && \
+        python3-pip && \
+    apt-get install -y nvidia-container-toolkit && \
     apt-get -y clean
 
 COPY . /src/
