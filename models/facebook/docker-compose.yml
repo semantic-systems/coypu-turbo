@@ -1,0 +1,15 @@
+services:
+  summarizer:
+    build:
+      context: ./build
+    ports:
+      - 5282:5000
+    restart: unless-stopped
+    networks:
+      - demo_network
+    container_name: newsfeeder_container
+    image: newsfeeder_image
+
+networks:
+  demo_network:
+    external: true
