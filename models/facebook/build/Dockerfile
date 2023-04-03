@@ -15,12 +15,12 @@ RUN \
 
 COPY . /src/
 
-RUN /usr/local/bin/python3.9 -m pip install -r /src/requirements.txt
-RUN /usr/local/bin/python3.9 -m pip install -e /src/.
+RUN pip install -r /src/requirements.txt
+RUN pip install -e /src/.
 
 WORKDIR src
 
 EXPOSE 5285/tcp
 
-ENTRYPOINT ["python"]
+ENTRYPOINT ["python3"]
 CMD ["/src/main.py"]
