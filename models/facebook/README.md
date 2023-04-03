@@ -15,3 +15,6 @@ pip install -e .
 ```
 
 ### Inference
+#### Specification
+- max. input sequence length: 512 (max for a 24GB GPU on Skynet)
+- max. generated sequence length: 256

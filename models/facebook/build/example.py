@@ -18,17 +18,18 @@ from llama import ModelArgs, Transformer, Tokenizer, LLaMA
 
 CKPT_PATH = "/coypu/static-data/models/llama/llama-dl/7B/"
 TOKENIZER_PATH = "/coypu/static-data/models/llama/llama-dl/tokenizer.model"
-os.environ["LOCAL_RANK"] = "-1"
-os.environ["RANK"] = "-1"
-os.environ["WORLD_SIZE"] = "-1"
+# os.environ["LOCAL_RANK"] = "1"
+os.environ["RANK"] = "0"
+os.environ["WORLD_SIZE"] = "1"
 os.environ["MASTER_ADDR"] = "localhost"
-os.environ["MASTER_PORT"] = "5278"
+os.environ["MASTER_PORT"] = "5277"
+os.environ["USE_TF"] = "0"
+os.environ["NCCL_SOCKET_IFNAME"] = "lo"
 
 
 def setup_model_parallel() -> Tuple[int, int]:
     local_rank = int(os.environ.get("LOCAL_RANK", -1))
     world_size = int(os.environ.get("WORLD_SIZE", -1))
-
     torch.distributed.init_process_group("nccl")
     initialize_model_parallel(world_size)
     torch.cuda.set_device(local_rank)
@@ -134,6 +135,7 @@ if __name__ == "__main__":
     max_batch_size = 32
 
     local_rank, world_size = setup_model_parallel()
+
     if local_rank > 0:
         sys.stdout = open(os.devnull, "w")
 
@@ -168,10 +170,11 @@ if __name__ == "__main__":
         
         cheese =>""",
     ]
+
     results = generator.generate(
         prompts, max_gen_len=256, temperature=temperature, top_p=top_p
     )
-
+    torch.cuda.empty_cache()
     for result in results:
         print(result)
         print("\n==================================\n")

@@ -1,14 +1,16 @@
 services:
-  summarizer:
+  llama_fb_7b_wo_ft:
     build:
       context: ./build
     ports:
-      - 5282:5000
+      - 5285:5000
     restart: unless-stopped
     networks:
       - demo_network
-    container_name: newsfeeder_container
-    image: newsfeeder_image
+    container_name: llama_fb_7b_wo_ft_container
+    image: llama_fb_7b_wo_ft_image
+    volumes:
+      - coypu/static-data/models/llama/llama-dl/:/data/llama/
 
 networks:
   demo_network:
