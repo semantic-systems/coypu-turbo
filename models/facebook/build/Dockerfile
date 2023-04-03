@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM nvidia/cuda:12.1.0-runtime-ubuntu22.04
 
 RUN \
     apt-get update && \
@@ -7,14 +7,16 @@ RUN \
     apt-get -y autoremove && \
     apt-get -y install \
         git \
-        curl \
-    && \
+        curl && \
+    apt-get install -y --no-install-recommends \
+        python3.9 \
+        python3-pip && \
     apt-get -y clean
 
 COPY . /src/
 
-RUN pip install -r /src/requirements.txt
-RUN pip install -e /src/.
+RUN /usr/local/bin/python3.9 -m pip install -r /src/requirements.txt
+RUN /usr/local/bin/python3.9 -m pip install -e /src/.
 
 WORKDIR src
 
