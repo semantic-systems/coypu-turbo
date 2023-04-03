@@ -46,7 +46,6 @@ max_seq_len = 512
 max_gen_seq_len = 256
 max_batch_size = 32
 
-print("GPU count: ", torch.cuda.device_count())
 
 local_rank, world_size = setup_model_parallel()
 

@@ -11,6 +11,13 @@ services:
     image: llama_fb_7b_wo_ft_image
     volumes:
       - /coypu/static-data/models/llama/llama-dl/:/data/llama/
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
 
 networks:
   demo_network:
