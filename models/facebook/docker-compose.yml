@@ -10,7 +10,7 @@ services:
     container_name: llama_fb_7b_wo_ft_container
     image: llama_fb_7b_wo_ft_image
     volumes:
-      - coypu/static-data/models/llama/llama-dl/:/data/llama/
+      - /coypu/static-data/models/llama/llama-dl/:/data/llama/
 
 networks:
   demo_network:
