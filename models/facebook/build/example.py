@@ -170,7 +170,7 @@ if __name__ == "__main__":
     ]
     results = generator.generate(
         prompts, max_gen_len=256, temperature=temperature, top_p=top_p
-    )q
+    )
 
     for result in results:
         print(result)
