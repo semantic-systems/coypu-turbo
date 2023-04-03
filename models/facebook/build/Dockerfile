@@ -11,12 +11,10 @@ RUN \
     && \
     apt-get -y clean
 
-COPY requirements.txt /src/
-COPY main.py /src/
-COPY build /src/build
+COPY . /src/
 
 RUN pip install -r /src/requirements.txt
-RUN pip install -e /src/build/.
+RUN pip install -e /src/.
 
 WORKDIR src
 
