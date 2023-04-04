@@ -30,7 +30,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["RANK"] = "0"
 os.environ["WORLD_SIZE"] = "1"
 os.environ["MASTER_ADDR"] = "localhost"
-os.environ["MASTER_PORT"] = "5277"
+os.environ["MASTER_PORT"] = "5284"
 os.environ["USE_TF"] = "0"
 os.environ["NCCL_SOCKET_IFNAME"] = "lo"
 
@@ -68,7 +68,7 @@ def flask():
         http_code = 401
 
     elif ('message' in request.json):
-        generated_sequence = generator.generate([str(request.json['message'])], max_gen_len=256, temperature=temperature, top_p=top_p)
+        generated_sequence = generator.generate([str(request.json['message'])], max_gen_len=max_gen_seq_len, temperature=temperature, top_p=top_p)
         torch.cuda.empty_cache()
         response = {'prediction': generated_sequence, 'turbo_version': "fb_wo_fine_tuning"}
         http_code = 200
@@ -81,4 +81,4 @@ def flask():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5285)
+    app.run(host='0.0.0.0')
