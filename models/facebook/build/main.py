@@ -27,7 +27,6 @@ app.config.update(
 
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
-os.environ["LOCAL_RANK"] = "1"
 os.environ["RANK"] = "0"
 os.environ["WORLD_SIZE"] = "1"
 os.environ["MASTER_ADDR"] = "localhost"

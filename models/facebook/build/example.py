@@ -18,7 +18,7 @@ from llama import ModelArgs, Transformer, Tokenizer, LLaMA
 
 CKPT_PATH = "/coypu/static-data/models/llama/llama-dl/7B/"
 TOKENIZER_PATH = "/coypu/static-data/models/llama/llama-dl/tokenizer.model"
-# os.environ["LOCAL_RANK"] = "1"
+#os.environ["LOCAL_RANK"] = "1"
 os.environ["RANK"] = "0"
 os.environ["WORLD_SIZE"] = "1"
 os.environ["MASTER_ADDR"] = "localhost"
