@@ -39,10 +39,9 @@ TOKENIZER_PATH = "/data/llama/tokenizer.model"
 
 ckpt_dir = CKPT_PATH
 tokenizer_path = TOKENIZER_PATH
-temperature = 0.8
-top_p = 0.95
+DEFAULT_TEMPERATURE = 1
+DEFAULT_TOP_P = 1
 max_seq_len = 512
-max_gen_seq_len = 256
 max_batch_size = 32
 
 
@@ -54,6 +53,7 @@ if local_rank > 0:
 generator = load(
     ckpt_dir, tokenizer_path, local_rank, world_size, max_seq_len, max_batch_size
 )
+
 
 @app.route('/', methods=['POST'])
 def flask():
@@ -67,13 +67,16 @@ def flask():
         response = {'error': 'no valid API key'}
         http_code = 401
 
-    elif ('message' in request.json):
-        temperature = request.json.get('temperature', 0.8)
-        top_p = request.json.get('top_p', 0.95)
+    elif ('prompt' in request.json):
+        temperature = request.json.get('temperature', DEFAULT_TEMPERATURE)
+        top_p = request.json.get('top_p', DEFAULT_TOP_P)
         max_gen_seq_len = request.json.get('max_gen_seq_len', 256)
         generated_sequence = generator.generate([str(request.json['message'])], max_gen_len=max_gen_seq_len, temperature=temperature, top_p=top_p)
         torch.cuda.empty_cache()
-        response = {'prediction': generated_sequence, 'turbo_version': "fb_wo_fine_tuning"}
+        response = {'content': generated_sequence[0],
+                    'meta': {"turbo_version": "llama-vanilla",
+                             "temperature": temperature,
+                             "top_p": top_p}}
         http_code = 200
 
     else:
