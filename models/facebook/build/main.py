@@ -68,6 +68,9 @@ def flask():
         http_code = 401
 
     elif ('message' in request.json):
+        temperature = request.json.get('temperature', 0.8)
+        top_p = request.json.get('top_p', 0.95)
+        max_gen_seq_len = request.json.get('max_gen_seq_len', 256)
         generated_sequence = generator.generate([str(request.json['message'])], max_gen_len=max_gen_seq_len, temperature=temperature, top_p=top_p)
         torch.cuda.empty_cache()
         response = {'prediction': generated_sequence, 'turbo_version': "fb_wo_fine_tuning"}
