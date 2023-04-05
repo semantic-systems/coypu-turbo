@@ -71,7 +71,7 @@ def flask():
         temperature = request.json.get('temperature', DEFAULT_TEMPERATURE)
         top_p = request.json.get('top_p', DEFAULT_TOP_P)
         max_gen_seq_len = request.json.get('max_gen_seq_len', 256)
-        generated_sequence = generator.generate([str(request.json['message'])], max_gen_len=max_gen_seq_len, temperature=temperature, top_p=top_p)
+        generated_sequence = generator.generate([str(request.json['prompt'])], max_gen_len=max_gen_seq_len, temperature=temperature, top_p=top_p)
         torch.cuda.empty_cache()
         response = {'content': generated_sequence[0],
                     'meta': {"turbo_version": "llama-vanilla",
