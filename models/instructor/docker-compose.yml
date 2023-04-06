@@ -1,0 +1,15 @@
+services:
+  instructor:
+    build:
+      context: ./build
+    ports:
+      - 5286:5000
+    restart: unless-stopped
+    networks:
+      - demo_network
+    container_name: instructor_large_container
+    image: instructor_large_image
+
+networks:
+  demo_network:
+    external: true

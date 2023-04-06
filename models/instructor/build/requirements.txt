@@ -1,0 +1,8 @@
+flask
+flask_healthz
+datasets==2.11.0
+instructorembedding==1.0.0
+jsonlines==3.1.0
+pip-chill==1.0.1
+rich==13.3.3
+sentence-transformers==2.2.2
