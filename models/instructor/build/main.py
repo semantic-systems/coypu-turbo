@@ -51,7 +51,7 @@ def flask():
         elif isinstance(instruction, list) and isinstance(sentence, list):
             prompts: List[List] = [[instruction[i], sentence[i]] for i in range(len(sentence))]
         else:
-            raise TypeError(f"Type Error: Type for both instruction and sentence need to be List or String.")
+            raise TypeError(f"Type Error: Type for both instruction and sentence need to be List or String. If both are List, their length must be same.")
         embeddings = model.encode(prompts, batch_size=256).tolist()  ## screw you stupid type hint
         response = {'embeddings': embeddings}
         http_code = 200
