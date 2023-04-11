@@ -11,13 +11,13 @@ services:
     image: vicuna_image
     volumes:
       - /coypu/static-data/models/:/data/models/
-      deploy:
-        resources:
-          reservations:
-            devices:
-              - driver: nvidia
-                count: 1
-                capabilities: [ gpu ]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
 
 networks:
   demo_network:
