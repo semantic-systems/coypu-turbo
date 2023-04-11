@@ -1,7 +1,7 @@
 from InstructorEmbedding import INSTRUCTOR
 from flask import Flask, jsonify, request
 from flask_healthz import healthz
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from typing import List
 
 app = Flask(__name__)
 
@@ -39,9 +39,20 @@ def flask():
         http_code = 401
 
     elif ('sentence' in request.json) and ('instruction' in request.json):
-        sentence = str(request.json['sentence'])
-        instruction = str(request.json['instruction'])
-        embeddings = model.encode([[instruction, sentence]]).tolist()[0]
+        sentence = request.json['sentence']
+        instruction = request.json['instruction']
+
+        if isinstance(instruction, str) and isinstance(sentence, str):
+            prompts: List[List] = [[instruction, sentence]]
+        elif isinstance(instruction, str) and isinstance(sentence, list):
+            prompts: List[List] = [[instruction, s] for s in sentence]
+        elif isinstance(instruction, list) and isinstance(sentence, str):
+            prompts: List[List] = [[i, sentence] for i in instruction]
+        elif isinstance(instruction, list) and isinstance(sentence, list):
+            prompts: List[List] = [[instruction[i], sentence[i]] for i in range(len(sentence))]
+        else:
+            raise TypeError(f"Type Error: Type for both instruction and sentence need to be List or String.")
+        embeddings = model.encode(prompts, batch_size=256).tolist()  ## screw you stupid type hint
         response = {'embeddings': embeddings}
         http_code = 200
 
