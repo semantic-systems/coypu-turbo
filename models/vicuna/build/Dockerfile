@@ -28,4 +28,4 @@ WORKDIR src
 EXPOSE 5289/tcp
 
 ENTRYPOINT ["python3"]
-CMD ["-m", "fastchat.serve.gradio_web_server", "--port 5000"]
+CMD ["-m", "fastchat.serve.gradio_web_server", "--port", "5000"]
