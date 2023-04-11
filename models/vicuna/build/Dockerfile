@@ -15,15 +15,15 @@ RUN \
 
 COPY . /src/
 
-RUN pip3 install -r /src/requirements.txt
+RUN /usr/bin/pip3 install -r /src/requirements.txt
 
-RUN pip3 install fschat
+RUN /usr/bin/pip3 install fschat
 
-RUN pip3 install git+https://github.com/huggingface/transformers
+RUN /usr/bin/pip3 install git+https://github.com/huggingface/transformers
 
 WORKDIR src
 
 EXPOSE 5289/tcp
 
 ENTRYPOINT ["python3"]
-CMD ["-m fastchat.serve.gradio_web_server --port 5000"]
+CMD ["-m", "fastchat.serve.gradio_web_server", "--port 5000"]
