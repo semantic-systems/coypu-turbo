@@ -19,7 +19,7 @@ RUN pip install -r /src/requirements.txt
 
 WORKDIR src
 
-EXPOSE 5289/tcp
+EXPOSE 5287/tcp
 
 ENTRYPOINT ["python3"]
-CMD ["-m fastchat.serve.gradio_web_server --port 5000"]
+CMD ["-m fastchat.serve.controller --port 5000"]

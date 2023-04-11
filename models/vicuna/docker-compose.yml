@@ -3,12 +3,51 @@ services:
     build:
       context: ./build
     ports:
-      - 5287:5000
+      - 5289:5000
     restart: unless-stopped
     networks:
       - demo_network
     container_name: vicuna_container
     image: vicuna_image
+    volumes:
+      - /coypu/static-data/models/:/data/models/
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+
+  controller:
+    build:
+      context: ./controllers
+    ports:
+      - 5287:5000
+    restart: unless-stopped
+    networks:
+      - demo_network
+    container_name: vicuna_controller
+    image: vicuna_controller_image
+    volumes:
+      - /coypu/static-data/models/:/data/models/
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+  worker:
+    build:
+      context: ./workers
+    ports:
+      - 5288:5000
+    restart: unless-stopped
+    networks:
+      - demo_network
+    container_name: vicuna_worker
+    image: vicuna_worker_image
     volumes:
       - /coypu/static-data/models/:/data/models/
     deploy:

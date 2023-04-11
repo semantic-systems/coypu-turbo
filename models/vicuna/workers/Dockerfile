@@ -19,7 +19,7 @@ RUN pip install -r /src/requirements.txt
 
 WORKDIR src
 
-EXPOSE 5289/tcp
+EXPOSE 5288/tcp
 
 ENTRYPOINT ["python3"]
-CMD ["-m fastchat.serve.gradio_web_server --port 5000"]
+CMD ["-m fastchat.serve.model_worker --model-path /data/models/vicuna/7B --port 5000"]

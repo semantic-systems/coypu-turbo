@@ -23,10 +23,8 @@ app.config.update(
     }
 )
 
-model = INSTRUCTOR('hkunlp/instructor-large')
 
-
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['POST', 'GET'])
 def flask():
     authenticated = False
 
@@ -38,7 +36,8 @@ def flask():
         response = {'error': 'no valid API key'}
         http_code = 401
 
-    elif ('sentence' in request.json) and ('instruction' in request.json):
+    elif 'prompt' in request.json:
+        model = INSTRUCTOR('hkunlp/instructor-large')
         sentence = str(request.json['sentence'])
         instruction = str(request.json['instruction'])
         embeddings = model.encode([[instruction, sentence]]).tolist()[0]
