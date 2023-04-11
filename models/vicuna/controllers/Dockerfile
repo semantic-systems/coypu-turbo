@@ -15,7 +15,11 @@ RUN \
 
 COPY . /src/
 
-RUN pip install -r /src/requirements.txt
+RUN pip3 install -r /src/requirements.txt
+
+RUN pip3 install fschat
+
+RUN pip3 install git+https://github.com/huggingface/transformers
 
 WORKDIR src
 
