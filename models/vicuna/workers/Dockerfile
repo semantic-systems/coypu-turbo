@@ -28,4 +28,4 @@ WORKDIR src
 EXPOSE 5288/tcp
 
 ENTRYPOINT ["python3"]
-CMD ["-m", "fastchat.serve.model_worker", "--model-path", "/data/models/vicuna/7B", "--port", "5000", "controller_address", "http://vicuna_controller:5000"]
+CMD ["-m", "fastchat.serve.model_worker", "--model-path", "/data/models/vicuna/7B", "--port", "5000", "--controller-address", "http://vicuna_controller:5000"]
