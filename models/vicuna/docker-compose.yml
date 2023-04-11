@@ -19,7 +19,7 @@ services:
               count: 1
               capabilities: [ gpu ]
     depends_on:
-      wroker:
+      worker:
         condition: service_healthy
 
   controller:
