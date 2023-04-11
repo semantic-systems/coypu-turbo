@@ -9,6 +9,15 @@ services:
       - demo_network
     container_name: vicuna_container
     image: vicuna_image
+    volumes:
+      - /coypu/static-data/models/:/data/models/
+      deploy:
+        resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                count: 1
+                capabilities: [ gpu ]
 
 networks:
   demo_network:

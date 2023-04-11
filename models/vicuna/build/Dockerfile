@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM nvidia/cuda:12.1.0-runtime-ubuntu22.04
 
 RUN \
     apt-get update && \
@@ -7,8 +7,10 @@ RUN \
     apt-get -y autoremove && \
     apt-get -y install \
         git \
-        curl \
-    && \
+        curl && \
+    apt-get install -y --no-install-recommends \
+        python3.9 \
+        python3-pip && \
     apt-get -y clean
 
 COPY . /src/
@@ -19,5 +21,9 @@ WORKDIR src
 
 EXPOSE 5287/tcp
 
+RUN nohup python3 -m fastchat.serve.controller
+
+RUN nohup python3 -m fastchat.serve.model_worker --model-path /data/models/vicuna/7B
+
 ENTRYPOINT ["python3"]
-CMD ["/src/main.py"]
+CMD ["-m fastchat.serve.gradio_web_server --port 5287"]
