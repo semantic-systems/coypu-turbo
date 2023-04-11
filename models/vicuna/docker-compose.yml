@@ -19,8 +19,7 @@ services:
               count: 1
               capabilities: [ gpu ]
     depends_on:
-      worker:
-        condition: service_healthy
+      - worker
 
   controller:
     build:
@@ -62,8 +61,7 @@ services:
               count: 1
               capabilities: [ gpu ]
     depends_on:
-      controller:
-        condition: service_healthy
+      - controller
 
 networks:
   demo_network:
