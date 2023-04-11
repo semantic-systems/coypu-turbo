@@ -15,15 +15,17 @@ RUN \
 
 COPY . /src/
 
-RUN /usr/bin/pip3 install -r /src/requirements.txt
+RUN pip3 install -r /src/requirements.txt
 
-RUN /usr/bin/pip3 install fschat
+RUN pip3 install fschat
 
-RUN /usr/bin/pip3 install git+https://github.com/huggingface/transformers
+RUN pip3 install git+https://github.com/huggingface/transformers
+
+RUN pip3 freeze
 
 WORKDIR src
 
 EXPOSE 5288/tcp
 
-ENTRYPOINT ["/usr/bin/python3"]
+ENTRYPOINT ["python3"]
 CMD ["-m", "fastchat.serve.model_worker", "--model-path /data/models/vicuna/7B", "--port 5000"]
