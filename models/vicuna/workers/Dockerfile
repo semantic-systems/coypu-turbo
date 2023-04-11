@@ -21,11 +21,9 @@ RUN /usr/bin/pip3 install fschat
 
 RUN /usr/bin/pip3 install git+https://github.com/huggingface/transformers
 
-RUN /usr/bin/pip3 freeze
-
 WORKDIR src
 
 EXPOSE 5288/tcp
 
-ENTRYPOINT ["python3"]
+ENTRYPOINT ["/usr/bin/python3"]
 CMD ["-m", "fastchat.serve.model_worker", "--model-path /data/models/vicuna/7B", "--port 5000"]

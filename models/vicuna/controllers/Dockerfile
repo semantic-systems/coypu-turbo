@@ -25,5 +25,5 @@ WORKDIR src
 
 EXPOSE 5287/tcp
 
-ENTRYPOINT ["python3"]
+ENTRYPOINT ["/usr/bin/python3 "]
 CMD ["-m", "fastchat.serve.controller", "--port 5000"]
