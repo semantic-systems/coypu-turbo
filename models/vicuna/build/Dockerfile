@@ -26,4 +26,4 @@ WORKDIR src
 EXPOSE 5289/tcp
 
 ENTRYPOINT ["python3"]
-CMD ["-m", "fastchat.serve.gradio_web_server", "--port", "5000", "--controller-url", "http://vicuna_controller:5000"]
+CMD ["-m", "fastchat.serve.gradio_web_server", "--port", "5000", "--controller-url", "http://vicuna_controller:5287", "--worker-address", "http://vicuna_worker:5000"]

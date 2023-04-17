@@ -21,8 +21,6 @@ RUN pip3 install fschat
 
 RUN pip3 install git+https://github.com/huggingface/transformers
 
-RUN pip3 freeze
-
 WORKDIR src
 
 EXPOSE 5287/tcp
