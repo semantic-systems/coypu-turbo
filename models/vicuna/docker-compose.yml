@@ -34,13 +34,6 @@ services:
     image: vicuna_controller_image
     volumes:
       - /coypu/static-data/models/:/data/models/
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [ gpu ]
 
   worker:
     build:
