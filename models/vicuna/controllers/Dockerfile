@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.1.0-runtime-ubuntu22.04
+FROM python:3.9-slim
 
 RUN \
     apt-get update && \
@@ -8,9 +8,6 @@ RUN \
     apt-get -y install \
         git \
         curl && \
-    apt-get install -y --no-install-recommends \
-        python3.9 \
-        python3-pip && \
     apt-get -y clean
 
 COPY . /src/
