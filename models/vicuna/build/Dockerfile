@@ -25,5 +25,9 @@ WORKDIR src
 
 EXPOSE 5289/tcp
 
+RUN python -m fastchat.serve.controller --host 127.0.0.1 --port 5000
+
+RUN python -m fastchat.serve.model_worker --model-path /data/models/vicuna/7B --host 127.0.0.1 --port 5001 --controller-address http://127.0.0.1:5000 --worker-address http://127.0.0.1:5001
+
 ENTRYPOINT ["python3"]
-CMD ["-m", "fastchat.serve.gradio_web_server", "--host", "127.0.0.1", "--port", "5000", "--controller-url", "http://vicuna_controller:5000"]
+CMD ["-m", "fastchat.serve.gradio_web_server", "--host", "127.0.0.1", "--port", "5002", "--controller-url", "http://127.0.0.1:5000"]
