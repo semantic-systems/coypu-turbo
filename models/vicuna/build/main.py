@@ -28,8 +28,8 @@ app.config.update(
 
 
 def main(message: str, temperature: float = 0.1, max_new_tokens: int = 1024):
-    model_name = '7B'
-    worker_addr = 'http://localhost:21002'
+    model_name = '13B'
+    worker_addr = 'http://vicuna_worker:5000'
 
     conv = get_default_conv_template(model_name).copy()
     conv.append_message(conv.roles[0], message)
@@ -49,12 +49,12 @@ def main(message: str, temperature: float = 0.1, max_new_tokens: int = 1024):
 
     # print(f"{conv.roles[0]}: {message}")
     print(f"response {response}")
-    output = "Sorry, something went wrong. Please contact Junbo."
+    output = ""
     for chunk in response.iter_lines(chunk_size=8192, decode_unicode=False, delimiter=b"\0"):
         if chunk:
             data = json.loads(chunk.decode("utf-8"))
             skip_echo_len = compute_skip_echo_len(model_name, conv, prompt)
-            output = data["text"][skip_echo_len:].strip()
+            output += data["text"][skip_echo_len:].strip()
             # print(f"{conv.roles[1]}: {output}", end="\r")
     # print("")
     return output
@@ -74,8 +74,8 @@ def flask():
 
     elif 'prompt' in request.json:
         prompt = request.json['prompt']
-        temperature = request.json['temperature']
-        max_new_tokens = request.json['max_new_tokens']
+        temperature = request.json.get('temperature', 0.1)
+        max_new_tokens = request.json.get('max_new_tokens', 1024)
 
         response = main(prompt, temperature, max_new_tokens)
         response = {'content': response,

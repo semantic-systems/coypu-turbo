@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.1.0-runtime-ubuntu22.04
+FROM python:3.9-slim
 
 RUN \
     apt-get update && \
@@ -8,9 +8,6 @@ RUN \
     apt-get -y install \
         git \
         curl && \
-    apt-get install -y --no-install-recommends \
-        python3.9 \
-        python3-pip && \
     apt-get -y clean
 
 COPY . /src/
@@ -22,4 +19,4 @@ WORKDIR src
 EXPOSE 5289/tcp
 
 ENTRYPOINT ["python3"]
-CMD ["-m", "fastchat.serve.gradio_web_server", "--host", "127.0.0.1", "--port", "5002", "--controller-url", "http://127.0.0.1:5000"]
+CMD ["/src/main.py"]

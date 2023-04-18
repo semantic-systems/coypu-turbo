@@ -18,41 +18,45 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [ gpu ]
+    depends_on:
+      - controller
+      - worker
 
-#  controller:
-#    build:
-#      context: ./controllers
-#    ports:
-#      - 5287:5000
-#    restart: unless-stopped
-#    networks:
-#      - demo_network
-#    container_name: vicuna_controller
-#    image: vicuna_controller_image
-#    volumes:
-#      - /coypu/static-data/models/:/data/models/
-#
-#  worker:
-#    build:
-#      context: ./workers
-#    ports:
-#      - 5288:5000
-#    restart: unless-stopped
-#    networks:
-#      - demo_network
-#    container_name: vicuna_worker
-#    image: vicuna_worker_image
-#    volumes:
-#      - /coypu/static-data/models/:/data/models/
-#    deploy:
-#      resources:
-#        reservations:
-#          devices:
-#            - driver: nvidia
-#              count: 1
-#              capabilities: [ gpu ]
-#    depends_on:
-#      - controller
+  worker:
+    build:
+      context: ./workers
+    ports:
+      - 5288:5000
+    restart: unless-stopped
+    networks:
+      - demo_network
+    container_name: vicuna_worker
+    image: vicuna_worker_image
+    volumes:
+      - /coypu/static-data/models/:/data/models/
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+    depends_on:
+      - controller
+
+  controller:
+    build:
+      context: ./controllers
+    ports:
+      - 5287:5000
+    restart: unless-stopped
+    networks:
+      - demo_network
+    container_name: vicuna_controller
+    image: vicuna_controller_image
+    volumes:
+      - /coypu/static-data/models/:/data/models/
+
 
 networks:
   demo_network:
