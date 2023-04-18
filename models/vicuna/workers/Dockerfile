@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.1.0-runtime-ubuntu22.04
+FROM pytorch/pytorch:2.0.0-cuda11.7-cudnn8-devel
 
 RUN \
     apt-get update && \
@@ -8,9 +8,6 @@ RUN \
     apt-get -y install \
         git \
         curl && \
-    apt-get install -y --no-install-recommends \
-        python3.9 \
-        python3-pip && \
     apt-get -y clean
 
 COPY . /src/
@@ -22,4 +19,4 @@ WORKDIR src
 EXPOSE 5288/tcp
 
 ENTRYPOINT ["python3"]
-CMD ["-m", "fastchat.serve.model_worker", "--model-path", "/data/models/vicuna/13B", "--load-8bit", "--port", "5000", "--controller-address", "http://vicuna_controller:5000"]
+CMD ["-m", "fastchat.serve.model_worker", "--model-path", "/data/models/vicuna/13B", "--load-8bit", "--port", "5000", "--controller-address", "http://vicuna_controller:5000", "--worker-address", "http://vicuna_worker:5000", "--host", "http://vicuna_worker"]
