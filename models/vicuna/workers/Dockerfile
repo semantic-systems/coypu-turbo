@@ -16,7 +16,7 @@ RUN pip3 install -r /src/requirements.txt
 
 WORKDIR src
 
-EXPOSE 5288/tcp
+EXPOSE 5001/tcp
 
 ENTRYPOINT ["python3"]
 

@@ -16,7 +16,8 @@ RUN pip3 install -r /src/requirements.txt
 
 WORKDIR src
 
-EXPOSE 5289/tcp
+EXPOSE 5000/tcp
 
 ENTRYPOINT ["python3"]
-CMD ["-u", "/src/main.py"]
+#CMD ["-u", "/src/main.py"]
+CMD ["-m", "fastchat.serve.gradio_web_server", "--port", "5000", "--controller-url", "http://vicuna_controller:5001", "--worker-address", "http://vicuna_worker:5001"]

@@ -3,7 +3,7 @@ services:
     build:
       context: ./build
     ports:
-      - 5289:5002
+      - 5289:5000
     restart: unless-stopped
     networks:
       - turbo_network
@@ -26,7 +26,7 @@ services:
     build:
       context: ./workers
     ports:
-      - 5288:5000
+      - 5288:5001
     restart: unless-stopped
     networks:
       - turbo_network
@@ -48,7 +48,7 @@ services:
     build:
       context: ./controllers
     ports:
-      - 5287:5000
+      - 5287:5001
     restart: unless-stopped
     networks:
       - turbo_network
