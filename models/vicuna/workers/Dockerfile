@@ -16,8 +16,8 @@ RUN pip3 install -r /src/requirements.txt
 
 WORKDIR src
 
-EXPOSE 5001/tcp
+EXPOSE 5288/tcp
 
 ENTRYPOINT ["python3"]
 
-CMD ["-m", "fastchat.serve.model_worker", "--model-path", "/data/models/vicuna/13B", "--model-name", "vicuna-13B-quantized","--load-8bit", "--host", "127.0.0.1", "--port", "5001", "--controller-address", "http://vicuna_controller:5001", "--worker-address", "http://vicuna_worker:5001", "--no-register"]
+CMD ["-m", "fastchat.serve.model_worker", "--model-path", "/data/models/vicuna/13B", "--model-name", "vicuna-13B-quantized","--load-8bit", "--host", "127.0.0.1", "--port", "5288", "--controller-address", "http://vicuna_controller:5287", "--worker-address", "http://vicuna_worker:5288", "--no-register"]

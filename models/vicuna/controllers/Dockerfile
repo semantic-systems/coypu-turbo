@@ -16,7 +16,7 @@ RUN pip3 install -r /src/requirements.txt
 
 WORKDIR src
 
-EXPOSE 5001/tcp
+EXPOSE 5287/tcp
 
 ENTRYPOINT ["python3"]
-CMD ["-m", "fastchat.serve.controller", "--host", "127.0.0.1", "--port", "5001"]
+CMD ["-m", "fastchat.serve.controller", "--host", "127.0.0.1", "--port", "5287"]
