@@ -28,8 +28,8 @@ app.config.update(
 
 
 def main(message: str, temperature: float = 0.1, max_new_tokens: int = 1024):
-    model_name = '13B'
-    worker_addr = 'http://vicuna_worker:5000'
+    model_name = 'vicuna-13B-quantized'
+    worker_addr = 'http://vicuna_worker:5001'
 
     conv = get_default_conv_template(model_name).copy()
     conv.append_message(conv.roles[0], message)
