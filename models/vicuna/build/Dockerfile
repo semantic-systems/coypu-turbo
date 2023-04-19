@@ -19,4 +19,4 @@ WORKDIR src
 EXPOSE 5289/tcp
 
 ENTRYPOINT ["python3"]
-CMD ["/src/main.py"]
+CMD ["-u", "/src/main.py"]
