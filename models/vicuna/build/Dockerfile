@@ -18,8 +18,6 @@ WORKDIR src
 
 EXPOSE 5289/tcp
 
-RUN export FASTCHAT_CONTROLLER_URL=http://vicuna_controller:5287
-
 ENTRYPOINT ["python3"]
 #CMD ["-u", "/src/main.py"]
 #CMD ["-m", "fastchat.serve.gradio_web_server", "--port", "5289", "--controller-url", "http://vicuna_controller:5287"]
