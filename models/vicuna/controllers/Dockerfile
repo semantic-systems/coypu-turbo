@@ -19,4 +19,4 @@ WORKDIR src
 EXPOSE 5287/tcp
 
 ENTRYPOINT ["python3"]
-CMD ["-m", "fastchat.serve.controller", "--host", "127.0.0.1", "--port", "5287"]
+CMD ["-m", "fastchat.serve.controller", "--host", "0.0.0.0",  "--port", "5287"]
