@@ -7,9 +7,8 @@ python3 -m fastchat.serve.api
 Reference: https://platform.openai.com/docs/api-reference/chat/create
 """
 
-from typing import Union, Dict, List, Any
+from typing import Union, Dict, List, Any, Union
 
-import argparse
 import json
 import logging
 
@@ -31,6 +30,7 @@ headers = {"User-Agent": "FastChat API Server"}
 
 class CustomChatCompletionRequest(ChatCompletionRequest):
     key: str
+    temperature: Optional[float] = 1
 
 
 @app.post("/")
