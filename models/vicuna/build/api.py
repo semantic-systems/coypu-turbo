@@ -29,19 +29,21 @@ app = fastapi.FastAPI()
 headers = {"User-Agent": "FastChat API Server"}
 
 
+class CustomChatCompletionRequest(ChatCompletionRequest):
+    key: str
+
+
 @app.post("/")
 async def create_chat_completion(request: ChatCompletionRequest):
     authenticated = False
 
-    if 'key' in request.json:
-        key = request.json['key']
-        if key == 'M7ZQL9ELMSDXXE86': authenticated = True
+    if request.key == 'M7ZQL9ELMSDXXE86': authenticated = True
 
     if authenticated == False:
         response = {'error': 'no valid API key'}
         http_code = 401
 
-    elif 'messages' in request.json:
+    else:
         """Creates a completion for the chat message"""
         payload, skip_echo_len = generate_payload(
             request.model,
@@ -70,10 +72,6 @@ async def create_chat_completion(request: ChatCompletionRequest):
         # }
         response = ChatCompletionResponse(choices=choices)
         http_code = 200
-
-    else:
-        response = {'error': 'no valid input'}
-        http_code = 400
 
     return response, http_code
 
@@ -156,4 +154,4 @@ async def chat_completion(model_name: str, payload: Dict[str, Any], skip_echo_le
 
 
 if __name__ == "__main__":
-    uvicorn.run("api:app", host="0.0.0.0", port="5285", reload=True)
+    uvicorn.run("api:app", host="0.0.0.0", port=5285, reload=True)
