@@ -34,7 +34,7 @@ class CustomChatCompletionRequest(ChatCompletionRequest):
 
 
 @app.post("/")
-async def create_chat_completion(request: ChatCompletionRequest):
+async def create_chat_completion(request: CustomChatCompletionRequest):
     authenticated = False
 
     if request.key == 'M7ZQL9ELMSDXXE86': authenticated = True
