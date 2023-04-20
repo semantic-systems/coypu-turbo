@@ -3,7 +3,7 @@ services:
     build:
       context: ./build
     ports:
-      - 5289:5289
+      - 5285:5285
     restart: unless-stopped
     networks:
       - turbo_network
