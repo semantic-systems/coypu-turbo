@@ -9,6 +9,13 @@ services:
       - demo_network
     container_name: instructor_large_container
     image: instructor_large_image
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
 
 networks:
   demo_network:
