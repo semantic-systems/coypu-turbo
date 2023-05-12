@@ -28,7 +28,7 @@ app.config.update(
 
 
 def main(message: str, temperature: float = 0.1, max_new_tokens: int = 1024):
-    model_name = 'vicuna-7B-8bit-quantized'
+    model_name = 'vicuna-13b-v1.1'
     worker_addr = 'http://vicuna_worker:5001'
 
     conv = get_default_conv_template(model_name).copy()
@@ -79,7 +79,7 @@ def flask():
 
         response = main(prompt, temperature, max_new_tokens)
         response = {'content': response,
-                    'meta': {"turbo_version": "vicuna-7B-8bit-quantized",
+                    'meta': {"turbo_version": "vicuna-13b-v1.1",
                              "temperature": temperature,
                              "max_new_tokens": max_new_tokens}}
         http_code = 200
