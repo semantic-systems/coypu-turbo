@@ -28,7 +28,7 @@ app.config.update(
 
 
 def main(message: str, temperature: float = 0.1, max_new_tokens: int = 1024):
-    model_name = 'vicuna-7B-quantized'
+    model_name = 'vicuna-7B-8bit-quantized'
     worker_addr = 'http://vicuna_worker:5001'
 
     conv = get_default_conv_template(model_name).copy()
