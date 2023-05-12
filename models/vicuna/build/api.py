@@ -7,7 +7,7 @@ python3 -m fastchat.serve.api
 Reference: https://platform.openai.com/docs/api-reference/chat/create
 """
 
-from typing import Union, Dict, List, Any, Union
+from typing import Optional, Dict, List, Any, Union
 
 import json
 import logging
