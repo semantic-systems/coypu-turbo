@@ -20,7 +20,7 @@ import uvicorn
 import aiohttp
 
 from fastchat.protocol.openai_api_protocol import (
-    ChatCompletionRequest, ChatCompletionResponse, ChatMessage, ChatCompletionResponseChoice, ChatCompletionResponseStreamChoice, DeltaMessage, ChatCompletionStreamResponse, UsageInfo)
+    ChatCompletionRequest, ChatCompletionResponse, ChatMessage, ChatCompletionResponseChoice, ChatCompletionResponseStreamChoice, DeltaMessage, ChatCompletionStreamResponse, UsageInfo, ErrorResponse)
 # from fastchat.conversation import get_default_conv_template, SeparatorStyle
 # from fastchat.serve.inference import compute_skip_echo_len
 from fastapi.responses import StreamingResponse, JSONResponse
