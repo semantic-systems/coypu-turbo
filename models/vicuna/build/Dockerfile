@@ -21,4 +21,4 @@ EXPOSE 5285/tcp
 ENTRYPOINT ["python3"]
 #CMD ["-m", "fastchat.serve.gradio_web_server", "--port", "5289", "--controller-url", "http://vicuna_controller:5287"]
 #CMD ["api.py"]
-CMD ["-m", "fastchat.serve.openai_api_server", "--port", "5285", "--controller-url", "http://vicuna_controller:5287"]
+CMD ["-m", "fastchat.serve.openai_api_server", "--port", "5285", "--controller-address", "http://vicuna_controller:5287"]

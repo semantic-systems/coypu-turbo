@@ -19,5 +19,5 @@ WORKDIR src
 
 EXPOSE 5286/tcp
 
-ENTRYPOINT ["python3"]
+ENTRYPOINT ["python3.9"]
 CMD ["/src/main.py"]
