@@ -104,7 +104,7 @@ async def fetch_remote(url, pload=None, name=None):
 
 class AppSettings(BaseSettings):
     # The address of the model controller.
-    controller_address: str = "http://localhost:21001"
+    controller_address: str = "http://vicuna_controller:5287"
     api_keys: Optional[List[str]] = None
 
 
