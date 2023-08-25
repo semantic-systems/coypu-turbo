@@ -1,4 +1,4 @@
 flask
 flask_healthz
 transformers @ git+https://github.com/huggingface/transformers
-"fschat[model_worker,webui]"
+fschat[model_worker,webui]
