@@ -3,4 +3,4 @@ flask_healthz
 transformers @ git+https://github.com/huggingface/transformers
 fschat[model_worker,webui]
 typing_extensions==4.7.1
-
+protobuf
