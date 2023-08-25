@@ -23,6 +23,7 @@ from fastchat.protocol.openai_api_protocol import (
 # from fastchat.conversation import get_default_conv_template, SeparatorStyle
 # from fastchat.serve.inference import compute_skip_echo_len
 from fastapi.responses import StreamingResponse, JSONResponse
+from pydantic import BaseSettings
 
 from fastchat.constants import ErrorCode, WORKER_API_TIMEOUT
 import shortuuid
