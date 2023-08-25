@@ -13,6 +13,7 @@ RUN \
 COPY . /src/
 
 RUN pip3 install -r /src/requirements.txt
+RUN pip3 install -e ".[model_worker,webui]"
 
 WORKDIR src
 

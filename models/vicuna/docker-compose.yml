@@ -9,8 +9,6 @@ services:
       - turbo_network
     container_name: vicuna_container
     image: vicuna_image
-    volumes:
-      - /coypu/static-data/models/:/data/models/
     deploy:
       resources:
         reservations:
@@ -32,8 +30,6 @@ services:
       - turbo_network
     container_name: vicuna_worker
     image: vicuna_worker_image
-    volumes:
-      - /coypu/static-data/models/:/data/models/
     deploy:
       resources:
         reservations:
@@ -54,8 +50,6 @@ services:
       - turbo_network
     container_name: vicuna_controller
     image: vicuna_controller_image
-    volumes:
-      - /coypu/static-data/models/:/data/models/
 
 
 networks:

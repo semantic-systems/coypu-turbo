@@ -1,4 +1,4 @@
 flask
 flask_healthz
-fschat @ git+https://github.com/junbohuang/FastChat.git
 transformers @ git+https://github.com/huggingface/transformers
+"fschat[model_worker,webui]"
