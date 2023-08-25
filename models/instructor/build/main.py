@@ -23,7 +23,7 @@ app.config.update(
     }
 )
 
-model = INSTRUCTOR('hkunlp/instructor-xl')
+model = INSTRUCTOR('hkunlp/instructor-large')
 
 
 @app.route('/', methods=['POST'])
