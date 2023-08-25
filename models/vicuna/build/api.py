@@ -26,7 +26,7 @@ from fastchat.protocol.openai_api_protocol import (
 from fastapi.responses import StreamingResponse, JSONResponse
 from pydantic import BaseSettings
 from fastchat.conversation import Conversation, SeparatorStyle
-
+from fastchat.serve.openai_api_server import *
 from fastchat.constants import ErrorCode, WORKER_API_TIMEOUT
 import shortuuid
 
