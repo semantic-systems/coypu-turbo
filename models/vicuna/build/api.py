@@ -333,6 +333,8 @@ async def create_chat_completion(request: CustomChatCompletionRequest):
         http_code = 401
 
     else:
+        mocked_model_name = "vicuna-13b-v1.5"
+        request.model = mocked_model_name
         """Creates a completion for the chat message"""
         error_check_ret = await check_model(request)
         if error_check_ret is not None:
