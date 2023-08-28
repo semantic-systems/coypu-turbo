@@ -20,4 +20,4 @@ EXPOSE 5288/tcp
 
 ENTRYPOINT ["python3"]
 
-CMD ["-m", "fastchat.serve.model_worker", "--model-path", "lmsys/vicuna-13b-v1.5","--load-8bit", "--model-name", "vicuna-13b-v1.5", "--host", "0.0.0.0", "--port", "5288", "--controller-address", "http://vicuna_controller:5287", "--worker-address", "http://vicuna_worker:5288"]
+CMD ["-m", "fastchat.serve.model_worker", "--model-path", "lmsys/vicuna-13b-v1.5-16k","--load-8bit", "--model-name", "vicuna-13b-v1.5", "--host", "0.0.0.0", "--port", "5288", "--controller-address", "http://vicuna_controller:5287", "--worker-address", "http://vicuna_worker:5288"]

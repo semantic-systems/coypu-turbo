@@ -21,8 +21,6 @@ import aiohttp
 
 from fastchat.protocol.openai_api_protocol import (
     ChatCompletionRequest, ChatCompletionResponse, ChatMessage, ChatCompletionResponseChoice, ChatCompletionResponseStreamChoice, DeltaMessage, ChatCompletionStreamResponse, UsageInfo, ErrorResponse)
-# from fastchat.conversation import get_default_conv_template, SeparatorStyle
-# from fastchat.serve.inference import compute_skip_echo_len
 from fastapi.responses import StreamingResponse, JSONResponse
 from pydantic import BaseSettings
 from fastchat.conversation import Conversation, SeparatorStyle
@@ -42,48 +40,6 @@ class CustomChatCompletionRequest(ChatCompletionRequest):
     key: str
     temperature: Optional[float] = 1
 
-
-# @app.post("/")
-# async def create_chat_completion(request: CustomChatCompletionRequest):
-#     authenticated = False
-#
-#     if request.key == 'M7ZQL9ELMSDXXE86': authenticated = True
-#
-#     if authenticated == False:
-#         response = {'error': 'no valid API key'}
-#         http_code = 401
-#
-#     else:
-#         """Creates a completion for the chat message"""
-#         payload, skip_echo_len = generate_payload(
-#             request.model,
-#             request.messages,
-#             temperature=request.temperature,
-#             max_tokens=request.max_tokens,
-#             stop=request.stop)
-#
-#         choices = []
-#         # TODO: batch the requests. maybe not necessary if using CacheFlow worker
-#         for i in range(request.n):
-#             content = await chat_completion(request.model, payload, skip_echo_len)
-#             choices.append(
-#                 ChatCompletionResponseChoice(
-#                     index=i,
-#                     message=ChatMessage(role="assistant", content=content),
-#                     # TODO: support other finish_reason
-#                     finish_reason="stop")
-#             )
-#
-#         # TODO: support usage field
-#         # "usage": {
-#         #     "prompt_tokens": 9,
-#         #     "completion_tokens": 12,
-#         #     "total_tokens": 21
-#         # }
-#         response = ChatCompletionResponse(choices=choices)
-#         http_code = 200
-#
-#     return response, http_code
 
 fetch_timeout = aiohttp.ClientTimeout(total=3 * 3600)
 
@@ -377,13 +333,6 @@ async def create_chat_completion(request: CustomChatCompletionRequest):
         http_code = 401
 
     else:
-
-        # url = 'http://0.0.0.0'
-        # payload = open("request.json")
-        # headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
-        # response = requests.post(url, data=payload, headers=headers)
-
-        # check_model, check_requests, get_worker_address, get_gen_params, check_length, chat_completion_stream_generator, StreamingResponse, create_error_response, ErrorCode, UsageInfo
         """Creates a completion for the chat message"""
         error_check_ret = await check_model(request)
         if error_check_ret is not None:
@@ -447,84 +396,6 @@ async def create_chat_completion(request: CustomChatCompletionRequest):
         response = ChatCompletionResponse(model=request.model, choices=choices, usage=usage)
         http_code = 200
     return response, http_code
-
-
-
-# def generate_payload(model_name: str, messages: List[Dict[str, str]],
-#                      *, temperature: float, max_tokens: int, stop: Union[str, None]):
-#     is_chatglm = "chatglm" in model_name.lower()
-#     # TODO(suquark): The template is currently a reference. Here we have to make a copy.
-#     # We use create a template factory to avoid this.
-#     conv = get_default_conv_template(model_name).copy()
-#
-#     # TODO(suquark): Conv.messages should be a list. But it is a tuple now.
-#     #  We should change it to a list.
-#     conv.messages = list(conv.messages)
-#
-#     for message in messages:
-#         msg_role = message["role"]
-#         if msg_role == "system":
-#             conv.system = message["content"]
-#         elif msg_role == "user":
-#             conv.append_message(conv.roles[0], message["content"])
-#         elif msg_role == "assistant":
-#             conv.append_message(conv.roles[1], message["content"])
-#         else:
-#             raise ValueError(f"Unknown role: {msg_role}")
-#
-#     # Add a blank message for the assistant.
-#     conv.append_message(conv.roles[1], None)
-#
-#     if is_chatglm:
-#         prompt = conv.messages[conv.offset:]
-#     else:
-#         prompt = conv.get_prompt()
-#     skip_echo_len = compute_skip_echo_len(model_name, conv, prompt)
-#
-#     if stop is None:
-#         stop = conv.sep if conv.sep_style == SeparatorStyle.SINGLE else conv.sep2
-#
-#     # TODO(suquark): We should get the default `max_new_tokens`` from the model.
-#     if max_tokens is None:
-#         max_tokens = 512
-#
-#     payload = {
-#         "model": model_name,
-#         "prompt": prompt,
-#         "temperature": temperature,
-#         "max_new_tokens": max_tokens,
-#         "stop": stop,
-#     }
-#
-#     logger.debug(f"==== request ====\n{payload}")
-#     return payload, skip_echo_len
-#
-#
-# async def chat_completion(model_name: str, payload: Dict[str, Any], skip_echo_len: int):
-#     controller_url = "http://vicuna_controller:5287"
-#     async with httpx.AsyncClient() as client:
-#         ret = await client.post(controller_url + "/get_worker_address", json={"model": model_name})
-#         worker_addr = ret.json()["address"]
-#         # No available worker
-#         if worker_addr == "":
-#             raise ValueError(f"No available worker for {model_name}")
-#
-#         logger.debug(f"model_name: {model_name}, worker_addr: {worker_addr}")
-#
-#         output = ""
-#         delimiter = b"\0"
-#         async with client.stream("POST", worker_addr + "/worker_generate_stream",
-#                                  headers=headers, json=payload, timeout=20) as response:
-#             content = await response.aread()
-#
-#         for chunk in content.split(delimiter):
-#             if not chunk:
-#                 continue
-#             data = json.loads(chunk.decode())
-#             if data["error_code"] == 0:
-#                 output = data["text"][skip_echo_len:].strip()
-#
-#         return output
 
 
 if __name__ == "__main__":
