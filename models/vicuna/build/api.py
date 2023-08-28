@@ -38,6 +38,7 @@ headers = {"User-Agent": "FastChat API Server"}
 
 class CustomChatCompletionRequest(ChatCompletionRequest):
     key: str
+    model: Optional[str] = "vicuna-13b-v1.5"
     temperature: Optional[float] = 1
 
 
