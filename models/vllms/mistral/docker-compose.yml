@@ -1,0 +1,24 @@
+services:
+  llama_fb_7b_wo_ft:
+    build:
+      context: ./build
+    ports:
+      - 5285:5000
+    restart: unless-stopped
+    networks:
+      - demo_network
+    container_name: llama_fb_7b_wo_ft_container
+    image: llama_fb_7b_wo_ft_image
+    volumes:
+      - /coypu/static-data/models/llama/llama-dl/:/data/llama/
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+networks:
+  demo_network:
+    external: true
