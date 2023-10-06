@@ -1,5 +1,5 @@
 services:
-  llama_fb_7b_wo_ft:
+  mistral_instruct_7b:
     build:
       context: ./build
     ports:
@@ -7,10 +7,8 @@ services:
     restart: unless-stopped
     networks:
       - demo_network
-    container_name: llama_fb_7b_wo_ft_container
-    image: llama_fb_7b_wo_ft_image
-    volumes:
-      - /coypu/static-data/models/llama/llama-dl/:/data/llama/
+    container_name: mistral_instruct_7b_container
+    image: mistral_instruct_7b_image
     deploy:
       resources:
         reservations:
