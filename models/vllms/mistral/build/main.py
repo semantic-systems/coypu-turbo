@@ -23,7 +23,7 @@ app.config.update(
     }
 )
 
-llm = LLM(model="mistralai/Mistral-7B-Instruct-v0.1", gpu_memory_utilization=0.1)
+llm = LLM(model="mistralai/Mistral-7B-Instruct-v0.1", gpu_memory_utilization=0.4)
 
 
 @app.route('/', methods=['POST'])
