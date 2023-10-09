@@ -23,7 +23,7 @@ app.config.update(
     }
 )
 
-llm = LLM(model="mistralai/Mistral-7B-Instruct-v0.1", gpu_memory_utilization=0.4)
+llm = LLM(model="mistralai/Mistral-7B-Instruct-v0.1", gpu_memory_utilization=0.8)
 
 
 @app.route('/', methods=['POST'])
@@ -32,7 +32,7 @@ def flask():
 
     if 'key' in request.json:
         key = request.json['key']
-        if (key == '2LL6Y5MGRCFQT68Y'): authenticated = True
+        if (key == 'M7ZQL9ELMSDXXE86'): authenticated = True
 
     if (authenticated == False):
         response = {'error': 'no valid API key'}
