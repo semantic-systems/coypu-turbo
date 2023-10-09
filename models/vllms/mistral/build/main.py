@@ -38,12 +38,12 @@ def flask():
         response = {'error': 'no valid API key'}
         http_code = 401
 
-    elif ('prompt' in request.json):
+    elif ('messages' in request.json):
         temperature = request.json.get('temperature', 0.8)
         top_p = request.json.get('top_p', 0.95)
         max_tokens = request.json.get('max_tokens', 512)
         sampling_params = SamplingParams(temperature=temperature, top_p=top_p, max_tokens=max_tokens)
-        outputs = llm.generate([str(request.json['prompt'])], sampling_params)
+        outputs = llm.generate(str(request.json['messages'][-1]["content"]), sampling_params)
 
         response = {'content': outputs[0].outputs[0].text,
                     'meta': {"turbo_version": "Mistral-7B-Instruct-v0.1",
