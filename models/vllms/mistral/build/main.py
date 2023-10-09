@@ -23,7 +23,7 @@ app.config.update(
     }
 )
 
-llm = LLM(model="mistralai/Mistral-7B-Instruct-v0.1")
+llm = LLM(model="mistralai/Mistral-7B-Instruct-v0.1", gpu_memory_utilization=0.1)
 
 
 @app.route('/', methods=['POST'])
@@ -46,7 +46,7 @@ def flask():
         outputs = llm.generate([str(request.json['prompt'])], sampling_params)
 
         response = {'content': outputs[0].outputs[0].text,
-                    'meta': {"turbo_version": "llama-vanilla",
+                    'meta': {"turbo_version": "Mistral-7B-Instruct-v0.1",
                              "temperature": temperature,
                              "top_p": top_p}}
         http_code = 200
