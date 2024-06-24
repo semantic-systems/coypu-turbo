@@ -1,0 +1,15 @@
+services:
+  llama3:
+    build:
+      context: ./build
+    ports:
+      - 5285:5285
+    restart: unless-stopped
+    networks:
+      - turbo_network
+    container_name: llama3_container
+    image: llama3_image
+
+networks:
+  turbo_network:
+    external: false
