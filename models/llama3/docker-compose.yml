@@ -4,6 +4,9 @@ services:
       context: ./build
     ports:
       - 5285:5285
+    environment:
+      - USERNAME=${USERNAME}
+      - PASSWORD=${PASSWORD}
     restart: unless-stopped
     networks:
       - turbo_network
