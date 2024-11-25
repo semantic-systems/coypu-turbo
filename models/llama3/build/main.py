@@ -54,6 +54,7 @@ def flask():
         max_gen_len = request.json.get('max_gen_len', 512)
 
         response = llama3(messages, temperature, max_new_tokens, top_p, max_seq_len, max_gen_len)
+        print(response)
         response = {'content': response,
                     'meta': {"turbo_version": "llama 3",
                              "temperature": temperature,

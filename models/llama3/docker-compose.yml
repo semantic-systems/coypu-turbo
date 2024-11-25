@@ -5,6 +5,8 @@ services:
     ports:
       - 5285:5000
     environment:
+      - USERNAME=${USERNAME}
+      - PASSWORD=${PASSWORD}
       - PYTHONUNBUFFERED=1
     restart: unless-stopped
     networks:
