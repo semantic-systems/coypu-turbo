@@ -25,14 +25,19 @@ app.config.update(
 )
 
 
-def llama3(messages, temperature, max_new_tokens, top_p):
+def llama3(messages, temperature, max_new_tokens, top_p, max_seq_len, max_gen_len):
     try:
-        url = 'https://turbo.skynet.coypu.org/'
+        url = 'https://llm-chat.skynet.coypu.org/generate_text'
+        username = os.environ.get('USERNAME', None)
+        password = os.environ.get('PASSWORD', None)
         response = requests.post(url,
                                 json={"messages": messages,
                                        "temperature": temperature,
                                        "max_new_tokens": max_new_tokens,
-                                       "top_p": top_p},
+                                       "top_p": top_p,
+                                       "max_seq_len": max_seq_len,
+                                       "max_gen_len": max_gen_len},
+                                auth=(username, password)
                                 ).json()
         return response.get('generated_text')
     except Exception as e:
@@ -45,14 +50,17 @@ def flask():
         temperature = request.json.get('temperature', 0.7)
         top_p = request.json.get('top_p', 0.9)
         max_new_tokens = request.json.get('max_new_tokens', 256)
+        max_seq_len = request.json.get('max_seq_len', 1024)
+        max_gen_len = request.json.get('max_gen_len', 512)
 
-
-        response = llama3(messages, temperature, max_new_tokens, top_p)
+        response = llama3(messages, temperature, max_new_tokens, top_p, max_seq_len, max_gen_len)
         response = {'content': response,
                     'meta': {"turbo_version": "llama 3",
                              "temperature": temperature,
                              "max_new_tokens": max_new_tokens,
-                             "top_p": top_p
+                             "top_p": top_p,
+                             "max_seq_len": max_seq_len,
+                             "max_gen_len": max_gen_len,
                              }}
         http_code = 200
 

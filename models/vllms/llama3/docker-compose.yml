@@ -1,0 +1,22 @@
+services:
+  llama3_7b:
+    build:
+      context: ./build
+    ports:
+      - 5285:5000
+    restart: unless-stopped
+    networks:
+      - demo_network
+    container_name: llama3_7b_container
+    image: llama3_7b_image
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+networks:
+  demo_network:
+    external: true
